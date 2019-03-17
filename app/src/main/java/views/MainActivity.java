@@ -1,5 +1,6 @@
 package views;
 
+import android.graphics.Typeface;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.TextView;
@@ -26,6 +27,8 @@ public class MainActivity extends AppCompatActivity {
         String output = "There are currently " + database.getTotalMemberCount()
                 + " members." + "\n" + database.getSubscribedMemberCount()
                 + " of those have subscribed.";
+        Typeface primaryFont = Typeface.createFromAsset(getAssets(), "fonts/EncodeSansExpanded-Thin.ttf");
+        membersTV.setTypeface(primaryFont);
         membersTV.setText(output);
     }
 
@@ -35,6 +38,8 @@ public class MainActivity extends AppCompatActivity {
                 + "Facebook: " + database.getFacebookCount() + "\n"
                 + "Word of Mouth: " + database.getWordOfMouthCount() + "\n"
                 + "Other: " + database.getOtherCount() + "\n";
+        Typeface primaryFont = Typeface.createFromAsset(getAssets(), "fonts/EncodeSansExpanded-Thin.ttf");
+        howTV.setTypeface(primaryFont);
         howTV.setText(output);
     }
 }

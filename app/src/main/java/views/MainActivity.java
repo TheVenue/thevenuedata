@@ -6,28 +6,35 @@ import android.widget.TextView;
 
 import com.example.thevenuedata.R;
 
-import presenters.QueryDatabase;
+import presenters.QueryDatabasePresenter;
 
 public class MainActivity extends AppCompatActivity {
 
-    private TextView membersTV;
-    private QueryDatabase database;
+    private QueryDatabasePresenter database;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        membersTV = findViewById(R.id.members);
-        database = new QueryDatabase(this);
-
-        setMembersTv();
-        database.setCountOnHowTheyFoundUs();
+        database = new QueryDatabasePresenter(this);
+        database.countTotalVsSubscribed();
+        database.countHowTheyFoundUs();
+    }
+    public void setTotalVsSubscribedTV() {
+        TextView membersTV = findViewById(R.id.tv_total_vs_subscribed);
+        String output = "There are currently " + database.getTotalMemberCount()
+                + " members." + "\n" + database.getSubscribedMemberCount()
+                + " of those have subscribed.";
+        membersTV.setText(output);
     }
 
-    private void setMembersTv() {
-        int[] membersTotalVsSubscribed = database.getTotalVsSubscribedCount();
-        membersTV.setText("The total number of accounts are: " + membersTotalVsSubscribed[0]
-                        + "\nThe total number of paid subscribers are: " + membersTotalVsSubscribed[1]);
+    public void setHowTheyFoundUsTV() {
+        TextView howTV = findViewById(R.id.tv_how_count);
+        String output = "The below data is how members found out about us.\n"
+                + "Facebook: " + database.getFacebookCount() + "\n"
+                + "Word of Mouth: " + database.getWordOfMouthCount() + "\n"
+                + "Other: " + database.getOtherCount() + "\n";
+        howTV.setText(output);
     }
 }
